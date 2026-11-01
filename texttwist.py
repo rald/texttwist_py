@@ -105,6 +105,18 @@ def start_game():
 
 	while True:
 		guess = input(PROMPT)
+		if not guess: continue
+
+		if guess.startswith('.'):
+			if guess==".list":
+				for i in range(len(matches)):
+					if i!=0: print(', ',end='')
+					if guessed[i]:
+						print(matches[i],end='')
+					else:
+						print(len(matches[i])*'*',end='')
+				print()
+
 		index = index_of(matches, guess)
 		if index == -1: continue
 		if guessed[index]:
