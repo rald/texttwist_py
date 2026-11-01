@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import random
 
 
@@ -94,8 +96,8 @@ def start_game():
 	PROMPT = '> '
 	score = 0
 
-	words = load_words('words.txt')
-	chosen_word = get_random_word('rndwords.txt')
+	words = load_words('wwf.txt')
+	chosen_word = get_random_word('rwords.txt')
 	matches = get_anagrams(chosen_word, words)
 	num_matches = len(matches)
 	guessed = [False] * num_matches
@@ -104,7 +106,10 @@ def start_game():
 	print(f"TEXTTWIST {scrambled}")
 
 	while True:
-		guess = input(PROMPT)
+		try:
+			guess = input(PROMPT)
+		except:
+			break
 		if not guess: continue
 
 		if guess.startswith('.'):
@@ -116,6 +121,9 @@ def start_game():
 					else:
 						print(len(matches[i])*'*',end='')
 				print()
+			elif guess==".twist":
+				scrambled = shuffle_word(chosen_word)
+				print(f"TEXTTWIST {scrambled}")
 
 		index = index_of(matches, guess)
 		if index == -1: continue
@@ -131,6 +139,7 @@ def start_game():
 			print(f"TEXTTWIST Game Complete!")
 			break
 
+	print()
 	print("TEXTTWIST Game Over.")
 	print(f"TEXTTWIST Score is {score}")
 
