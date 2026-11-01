@@ -70,8 +70,61 @@ def get_random_word(file_path="rndwords.txt"):
         print(e)
         return None
 
-words = load_words('words.txt')
-word = get_random_word('rndwords.txt')
-anagrams = get_anagrams(word, words)
-print(word)
-print(anagrams)
+
+
+def index_of(matches, guess):
+    """
+    Returns the index of guess in matches, or -1 if not found.
+    (Mimics JavaScript's Array.prototype.indexOf)
+    """
+    try:
+        return matches.index(guess)
+    except ValueError:
+        return -1
+
+
+
+def shuffle_word(word):
+	return "".join(random.sample(word, len(word)))
+
+
+
+def start_game():
+
+	PROMPT = '> '
+	score = 0
+
+	words = load_words('words.txt')
+	chosen_word = get_random_word('rndwords.txt')
+	matches = get_anagrams(chosen_word, words)
+	num_matches = len(matches)
+	guessed = [False] * num_matches
+
+	scrambled = shuffle_word(chosen_word)
+	print(f"TEXTTWIST {scrambled}")
+
+	while True:
+		guess = input(PROMPT)
+		index = index_of(matches, guess)
+		if index == -1: continue
+		if guessed[index]:
+			print(f"TEXTTWIST The word '{matches[index]}' is already guessed.")
+			continue
+		guessed[index] = True
+		points = len(matches[index])**2*10
+		score += points
+		num_matches -= 1
+		print(f"TEXTTWIST Plus {points} points. Score is now {score}.")
+		if num_matches == 0:
+			print(f"TEXTTWIST Game Complete!")
+			break
+
+	print("TEXTTWIST Game Over.")
+	print(f"TEXTTWIST Score is {score}")
+
+
+
+if __name__ == "__main__":
+    start_game()
+
+
