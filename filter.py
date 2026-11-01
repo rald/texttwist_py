@@ -34,18 +34,20 @@ def get_anagrams(word, words):
     return results
 
 words=[]
-with open('words.txt', 'r', encoding='utf-8') as f:
+with open('wwf.txt', 'r', encoding='utf-8') as f:
 	for line in f:
 		w = line.strip().lower()
 		if w:
 			words.append(w)
 
-
-with open('rndwords.txt', 'w', encoding='utf-8') as f:
+i=0
+with open('rwords.txt', 'w', encoding='utf-8') as f:
 	for word in words:
+		i+=1
+		percent=i/len(words)*100
+		print(f"{percent:.2f}")
 		if len(word)!=6: continue
 		anagrams=get_anagrams(word,words);
 		if len(anagrams)>=10 and len(anagrams)<=48:
 			f.write(word+'\n')
-			print(word)
 
