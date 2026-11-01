@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 
 def get_anagrams(word, words):
@@ -45,7 +46,7 @@ with open('rwords.txt', 'w', encoding='utf-8') as f:
 	for word in words:
 		i+=1
 		percent=i/len(words)*100
-		print(f"{percent:.2f}")
+		print(f"{percent:.2f}%%")
 		if len(word)!=6: continue
 		anagrams=get_anagrams(word,words);
 		if len(anagrams)>=10 and len(anagrams)<=48:
